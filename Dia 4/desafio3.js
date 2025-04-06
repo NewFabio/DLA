@@ -1,3 +1,6 @@
+//Desafio 03:
+//Transforme o Código em uma Condição Ternária
+
 //condicao normal veirificada com if
 let nota1 = 85
 let status1

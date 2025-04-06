@@ -1,13 +1,20 @@
-let cancela = ""
+//Desafio 05:
+//Cancela de Estacionamento
+//Crie um código usando switch que imprima uma mensagem adequada para o motorista. O sistema tem três possíveis estados: "Aberta", "Fechada", "Manutenção".
+let codigo = 2
+let cancela = "";
 
-switch (cancela) {
-    case true:
-        console.log('Aberta');
+switch (codigo) {
+    case 1:
+        cancela = "Aberta";
         break;
-    case false:
-        console.log('Fechada');
+    case 2:
+        cancela = "Fechada";
+        break;
+    case 3:
+        cancela = "Manutenção";
         break;
     default:
-        console.log('Manutenção');
-        break;
+        cancela = "Inválido";
 }
+console.log(cancela)
