@@ -7,15 +7,17 @@
 //3.Se for igual ou superior a 50 anos ou inferior a 70 anos, o vencimento é de 5 anos.
 //4.Se for igual ou superior a 70 anos, o vencimento será de 3 anos.
 
-let primeiraCarteira = true;
-let idade = 15;
+let primeiraCarteira = false;
+let idade = 71;
 
-if (primeiraCarteira && idade >= 18) {
+if (primeiraCarteira) {
   console.log('Sua carteira tem 1 ano de validade');
+} else if (idade < 18) {
+  console.log('Você não pode tirar a carteira de motorista antes de 18 anos');
 } else if (idade < 50) {
   console.log('Sua carteira tem 10 anos de validade');
-} else if (idade >= 50 && idade < 70) {
+} else if (idade < 70) {
   console.log('Sua carteira tem 5 anos de validade');
-} else if (idade >= 70) {
+} else if (idade > 70) {
   console.log('Sua carteira tem 3 anos de validade');
 }
