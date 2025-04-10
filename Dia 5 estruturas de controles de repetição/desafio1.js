@@ -9,5 +9,5 @@ let rendimento = 0.12
 
 for (let ano = 1; ano <= 10; ano ++) {
     let valorBruto = investimentoInicial * rendimento * ano
-    console.log(`O seu investimento rendeu R$${valorBruto} `)
+    console.log(`O seu investimento rendeu R$${valorBruto}`)
 }
