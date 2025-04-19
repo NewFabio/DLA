@@ -21,17 +21,18 @@ const produtos = [
     ["Manteiga", 9.99]
 ];
 
-function selectionSort(arr) {
+function ordenarPorNome(arr) {
     let n = arr.length
 
     for (let i = 0; i < n - 1; i++) {
         let minIndex = i
 
         for (let j = i + 1; j < n; j++) {
-            if (arr[j][1] < arr[minIndex][1]) {
+            if (arr[j][0] < arr[minIndex][0]) { //comparando pelo nome do produto
                 minIndex = j
             }
         }
+        //troca os elementos manualmente
         let temp = arr[i]
         arr[i] = arr[minIndex]
         arr[minIndex] = temp
@@ -39,5 +40,30 @@ function selectionSort(arr) {
     return arr
 }
 
-const a = selectionSort(produtos)
-console.log(a)
+function ordenarPorPreco(arr) {
+    let n = arr.length
+
+    for (let i = 0; i < n - 1; i++) {
+        let minIndex = i
+
+        for (let j = i + 1; j < n; j++) {
+            if (arr[j][1] < arr[minIndex][1]) { //comparando pelo preço do produto
+                minIndex = j
+            }
+        }
+        //troca os elementos manualmente
+        let temp = arr[i]
+        arr[i] = arr[minIndex]
+        arr[minIndex] = temp
+    }
+    return arr
+}
+
+console.log("🛒 Lista Original")
+console.table(produtos)
+
+console.log("Lista ordenada por nome: ")
+console.table(ordenarPorNome(produtos.slice()))
+
+console.log("Lista ordenada por preço: ")
+console.table(ordenarPorPreco(produtos.slice()))
