@@ -17,9 +17,9 @@ function criarMusica(nome, artista, tempo) {
 
 // Estrutura da Playlist como um Objeto Literal
 const playlist = {
-    musicas: [], // Array para armazenar as músicas
+    musicas: [],
 
-    // Adiciona uma música no início da playlist (sem usar unshift)
+    // Adiciona uma música ao início da playlist
     adicionarMusica: function(nome, artista, tempo) {
         const novaMusica = criarMusica(nome, artista, tempo);
         
@@ -27,86 +27,31 @@ const playlist = {
         for (let i = this.musicas.length; i > 0; i--) {
             this.musicas[i] = this.musicas[i - 1];
         }
-        this.musicas[0] = novaMusica; // A nova música ocupa o índice 0
+        this.musicas[0] = novaMusica;
         console.log(`🎶 Música "${nome}" adicionada à playlist!`);
     },
 
-    // Remove uma música da playlist (sem usar findIndex e splice)
-    removerMusica: function(nome) {
-        let index = -1;
+    // Ordenação por Nome usando `.sort()`
+    ordenarPorNomeSort: function() {
+      this.musicas.sort((a, b) => {
+        let nomeA = a.nome.toLowerCase();
+        let nomeB = b.nome.toLowerCase();
 
-        // Encontramos o índice da música manualmente
-        for (let i = 0; i < this.musicas.length; i++) {
-            if (this.musicas[i].nome === nome) {
-                index = i;
-                break;
-            }
-        }
+        if (nomeA < nomeB) return -1;
+        if (nomeA > nomeB) return 1;
+        return 0;
+      });
 
-        if (index === -1) {
-            console.log(`⚠️ Música "${nome}" não encontrada.`);
-            return;
-        }
-
-        // Deslocamos os elementos para preencher o espaço vazio
-        for (let i = index; i < this.musicas.length - 1; i++) {
-            this.musicas[i] = this.musicas[i + 1];
-        }
-        
-        // Reduzimos o tamanho do array
-        this.musicas.length--;
-        console.log(`❌ Música "${nome}" removida da playlist.`);
+        console.log("🔤 Playlist ordenada por Nome (usando sort).");
     },
 
-    // Move uma música para uma nova posição (sem usar splice)
-    moverMusica: function(nome, novaPosicao) {
-        let index = -1;
-
-        // Encontramos a posição original da música
-        for (let i = 0; i < this.musicas.length; i++) {
-            if (this.musicas[i].nome === nome) {
-                index = i;
-                break;
-            }
-        }
-
-        if (index === -1) {
-            console.log(`⚠️ Música "${nome}" não encontrada.`);
-            return;
-        }
-
-        // Pegamos a música a ser movida
-        let musica = this.musicas[index];
-
-        // Deslocamos os elementos para preencher o espaço vazio
-        for (let i = index; i < this.musicas.length - 1; i++) {
-            this.musicas[i] = this.musicas[i + 1];
-        }
-        this.musicas.length--;
-
-        // Movemos os elementos para abrir espaço na nova posição
-        for (let i = this.musicas.length; i > novaPosicao; i--) {
-            this.musicas[i] = this.musicas[i - 1];
-        }
-        this.musicas[novaPosicao] = musica;
-        
-        console.log(`🔄 Música "${nome}" movida para a posição ${novaPosicao + 1}.`);
+    // Ordenação por Número de Reproduções usando `.sort()`
+    ordenarPorReproducoesSort: function() {
+        this.musicas.sort((a, b) => b.reproducoes - a.reproducoes);
+        console.log("🔢 Playlist ordenada por Número de Reproduções (usando sort).");
     },
 
-    // Toca toda a playlist do início ao fim
-    tocarPlaylist: function() {
-        if (this.musicas.length === 0) {
-            console.log("⚠️ A playlist está vazia.");
-            return;
-        }
-        console.log("🎼 Tocando a playlist:");
-        for (let i = 0; i < this.musicas.length; i++) {
-            this.musicas[i].reproducoes++;
-            console.log(`▶️ Tocando: ${this.musicas[i].nome} - ${this.musicas[i].artista} (${this.musicas[i].tempo})`);
-        }
-    },
-
-    // Toca apenas uma música específica
+    // Simula tocar uma música e aumentar a contagem de reproduções
     tocarMusica: function(nome) {
         for (let i = 0; i < this.musicas.length; i++) {
             if (this.musicas[i].nome === nome) {
@@ -118,8 +63,8 @@ const playlist = {
         console.log(`⚠️ Música "${nome}" não encontrada.`);
     },
 
-    // Exibe a playlist atual
-    mostrarPlaylist: function(arr) {
+    // Exibe a playlist
+    mostrarPlaylist: function() {
         if (this.musicas.length === 0) {
             console.log("📭 A playlist está vazia.");
         } else {
@@ -128,39 +73,34 @@ const playlist = {
                 console.log(`${i + 1}. ${this.musicas[i].nome} - ${this.musicas[i].artista} | Reproduções: ${this.musicas[i].reproducoes}`);
             }
         }
-
-        let n = arr.length
-        for (let i = 0; i < n - 1; i++) {
-            let minIndex = i
-    
-            for (let j = i + 1; j < n; j++) {
-                if (arr[j][0] < arr[minIndex][0]) { //comparando pelo nome do produto
-                    minIndex = j
-                }
-            }
-            //troca os elementos manualmente
-            let temp = arr[i]
-            arr[i] = arr[minIndex]
-            arr[minIndex] = temp
-        }
-        return arr
     }
-    
 };
 
 // 🎧 Testando a playlist
 playlist.adicionarMusica("Bohemian Rhapsody", "Queen", "5:55");
 playlist.adicionarMusica("Shape of You", "Ed Sheeran", "3:53");
 playlist.adicionarMusica("Blinding Lights", "The Weeknd", "3:22");
+playlist.adicionarMusica("Hotel California", "Eagles", "6:30");
+playlist.adicionarMusica("Imagine", "John Lennon", "3:07");
 
+// Mostrar playlist antes da ordenação
 playlist.mostrarPlaylist();
 
+// Tocar algumas músicas para modificar a contagem de reproduções
 playlist.tocarMusica("Shape of You");
+playlist.tocarMusica("Shape of You");
+playlist.tocarMusica("Imagine");
+playlist.tocarMusica("Bohemian Rhapsody");
+playlist.tocarMusica("Bohemian Rhapsody");
+playlist.tocarMusica("Bohemian Rhapsody");
 
-playlist.tocarPlaylist();
+// Mostrar playlist com as contagens atualizadas
+playlist.mostrarPlaylist();
 
-playlist.moverMusica("Blinding Lights", 1);
+// Ordenar por Nome e mostrar (usando sort)
+playlist.ordenarPorNomeSort();
+playlist.mostrarPlaylist();
 
-playlist.removerMusica("Bohemian Rhapsody");
-
+// Ordenar por Reproduções e mostrar (usando sort)
+playlist.ordenarPorReproducoesSort();
 playlist.mostrarPlaylist();
